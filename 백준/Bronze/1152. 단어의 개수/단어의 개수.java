@@ -6,13 +6,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         String str = sc.nextLine();
-        int count = 0;
-        StringTokenizer tokenizer = new StringTokenizer(str, " ");
-        while(tokenizer.hasMoreTokens()){
-            count++;
-            tokenizer.nextToken();
-        }
-
-        System.out.println(count);
+        StringTokenizer tokenizer = new StringTokenizer(str);
+        System.out.println(tokenizer.countTokens());
     }
 }
