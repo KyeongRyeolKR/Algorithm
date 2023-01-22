@@ -1,38 +1,38 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     private static Scanner sc = new Scanner(System.in);
-    
+
     public static void main(String[] args) {
         Main main = new Main();
-        int[] arr = main.getIntArray();
-        System.out.println(main.getAverage(arr));
-        System.out.println(main.getMiddleValue(arr));
+        List<Integer> list = main.getIntList();
+        main.printResult(main.getAverage(list), main.getMiddleValue(list));
     }
 
-    private int[] getIntArray(){
-        int[] array = new int[5];
+    private List<Integer> getIntList(){
+        List<Integer> array = new ArrayList<>();
         for(int i=0; i<5; i++){
-            array[i] = sc.nextInt();
+            array.add(sc.nextInt());
         }
         return array;
     }
 
-    private int getAverage(int[] array){
-        return getSum(array)/array.length;
+    private int getAverage(List<Integer> list){
+        return getSum(list)/list.size();
     }
 
-    private int getMiddleValue(int[] array){
-        Arrays.sort(array);
-        return array[2];
+    private int getMiddleValue(List<Integer> list){
+        Collections.sort(list);
+        return list.get(2);
     }
 
-    private int getSum(int[] array){
-        int sum = 0;
-        for(int x : array){
-            sum += x;
-        }
-        return sum;
+    private int getSum(List<Integer> list){
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    private void printResult(int average, int middleValue){
+        System.out.printf("%d\n%d", average, middleValue);
     }
 }
