@@ -14,9 +14,6 @@ public class Main {
         List<Triangle> triangles = new ArrayList<>();
         while(true){
             List<Integer> list = new ArrayList<>();
-//            int a = sc.nextInt();
-//            int b = sc.nextInt();
-//            int c = sc.nextInt();
             list.add(sc.nextInt());
             list.add(sc.nextInt());
             list.add(sc.nextInt());
