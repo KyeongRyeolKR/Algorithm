@@ -11,7 +11,7 @@ public class Main {
         String resultString = String.valueOf(result);
 
         for(int i=0; i<resultString.length(); i++){
-            arr[Integer.parseInt(String.valueOf(resultString.charAt(i)))]++;
+            arr[resultString.charAt(i)-'0']++;
         }
 
         for(int x : arr) {
