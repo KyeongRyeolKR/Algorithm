@@ -9,9 +9,9 @@ public class Main {
         for (int i = 0; i < countFiles; i++) {
             fileSizes.add(sc.nextInt());
         }
-        long clusterSize = sc.nextInt();
+        int clusterSize = sc.nextInt();
 
-        List<Long> results = new ArrayList<>();
+        List<Integer> results = new ArrayList<>();
         for (int x : fileSizes) {
             if (x == 0) {
                 continue;
@@ -23,7 +23,7 @@ public class Main {
         }
 
         long sum = 0;
-        for (long x : results) {
+        for (int x : results) {
             sum += x;
         }
 
