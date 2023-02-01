@@ -6,17 +6,17 @@ public class Main {
     private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Main main = new Main();
-        Input in = new Input(sc.nextInt(), sc.next());
+        Input11720 in = new Input11720(sc.nextInt(), sc.next());        // 1. 인풋 값 객체화
 
-        List<Integer> numbers = main.toNumberOfDigits(in.getNumber());
-        int result = main.sum(numbers);
+        List<Integer> numbers = toNumberOfDigits(in.getNumber());  // 2. 문자열로 이루어진 숫자를 각 자리수(정수)로 변환하여 리스트로 반환
         
-        System.out.println(result);
+        int result = sumList(numbers);                 // 3. 리스트를 스트림으로 변환하여 누적 합을 반환
+
+        System.out.println(result);                    // 4. 결과 출력
     }
 
-    // 문자열로 이루어진 숫자를 각 자리수(정수)로 변환하여 리스트로 반환하는 메소드
-    private List<Integer> toNumberOfDigits(String number){
+    // 2.
+    private static List<Integer> toNumberOfDigits(String number){
         List<Integer> result = new ArrayList<>();
         for(int i=0; i<number.length(); i++) {
             result.add(Integer.parseInt(String.valueOf(number.charAt(i))));
@@ -24,8 +24,8 @@ public class Main {
         return result;
     }
 
-    // 리스트를 스트림으로 변환하여 누적 합을 반환하는 메소드
-    private int sum(List<Integer> numbers){
+    // 3.
+    private static int sumList(List<Integer> numbers){
         return numbers.stream().mapToInt(Integer::intValue).sum();
     }
 }
@@ -33,11 +33,11 @@ public class Main {
 /**
  * 초기 값을 담는 엔티티 클래스
  */
-class Input {
+class Input11720 {
     private int count;
     private String number;
 
-    public Input(int count, String number) {
+    public Input11720(int count, String number) {
         this.count = count;
         this.number = number;
     }
