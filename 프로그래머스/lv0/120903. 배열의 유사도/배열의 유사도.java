@@ -1,13 +1,9 @@
+import java.util.Arrays;
+
 class Solution {
     public int solution(String[] s1, String[] s2) {
-        int count = 0;
-        for(String x : s1){
-            for(String y : s2){
-                if(x.equals(y)) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return (int) Arrays.stream(s1)
+                .filter(s1Element -> Arrays.asList(s2).contains(s1Element))
+                .count();
     }
 }
