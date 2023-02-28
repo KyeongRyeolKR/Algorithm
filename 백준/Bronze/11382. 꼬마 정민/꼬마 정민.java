@@ -7,7 +7,10 @@ class Main {
 
         String[] str = br.readLine().split(" ");
 
-        long sum = Arrays.stream(Arrays.stream(str).mapToLong(Long::parseLong).toArray()).sum();
+        long sum = Arrays.stream(str)
+//                .peek(System.out::println)
+                .mapToLong(Long::parseLong)
+                .sum();
 
         System.out.println(sum);
     }
