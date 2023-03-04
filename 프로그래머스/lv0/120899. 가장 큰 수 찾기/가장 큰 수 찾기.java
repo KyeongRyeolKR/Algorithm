@@ -1,20 +1,19 @@
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 class Solution {
     public int[] solution(int[] array) {
-        int[] answer = new int[2];
+        List<Integer> list = Arrays.stream(array)
+                .boxed()
+                .collect(Collectors.toList());
 
-        int[] subArr = array.clone();
-        
-        Arrays.sort(array);
-        answer[0] = array[array.length-1];
-        
-        for(int i=0; i<subArr.length; i++) {
-            if(answer[0] == subArr[i]) {
-                answer[1] = i;
-            }
-        }
-        
-        return answer;
+        int maxValue = list.stream()
+                .max(Integer::compareTo)
+                .orElse(0);
+
+        int maxIndex = list.indexOf(maxValue);
+
+        return new int[]{maxValue, maxIndex};
     }
 }
