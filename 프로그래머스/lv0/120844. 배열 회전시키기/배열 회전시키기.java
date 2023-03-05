@@ -10,7 +10,7 @@ class Solution {
             list.add(0, list.get(list.size()-1));
             list.remove(list.size()-1);
         } else {
-            list.add(list.size(), list.get(0));
+            list.add(list.get(0));
             list.remove(0);
         }
 
