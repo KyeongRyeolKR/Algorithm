@@ -1,20 +1,18 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Stack;
 
 class Solution {
     public int solution(String s) {
-        List<String> strings = Arrays.stream(s.split(" "))
-            .collect(Collectors.toList());
+        Stack<String> stack = new Stack<>();
 
-        for(int i=0; i<strings.size(); i++) {
-            if(strings.get(i).equals("Z")) {
-                strings.remove(i-1);
+        for(String x : s.split(" ")) {
+            if(x.equals("Z")) {
+                stack.pop();
+            } else {
+                stack.push(x);
             }
         }
 
-        return strings.stream()
-                .filter(e -> !e.equals("Z"))
+        return stack.stream()
                 .mapToInt(Integer::parseInt)
                 .sum();
     }
