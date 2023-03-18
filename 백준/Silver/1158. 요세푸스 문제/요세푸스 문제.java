@@ -13,6 +13,8 @@ class Main {
             queue.offer(i);
         }
 
+//        IntStream.rangeClosed(1,size).forEach(queue::offer);
+
         StringBuilder sb = new StringBuilder();
         sb.append("<");
         while(!queue.isEmpty()) {
