@@ -11,16 +11,16 @@ class Solution {
             a = a / gcd;
             b = b / gcd;
         }
-        
+
         // 분모의 소인수들을 구하고, 소인수 중 2 또는 5가 아닌것이 있다면 count 증가
         List<Integer> denominatorPrimes = getPrimes(b);
         int count = 0;
         for (int x : denominatorPrimes) {
             if (!checkTwoOrFive(x)) {
-                count++;
+                return 2;
             }
         }
-        return count > 0 ? 2 : 1;
+        return 1;
     }
 
     public static int getGCD(int num1, int num2) {
