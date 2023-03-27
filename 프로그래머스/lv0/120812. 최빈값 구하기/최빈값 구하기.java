@@ -13,9 +13,7 @@ class Solution {
             }
             map.put(array[i], count);
         }
-
-        System.out.println(map);
-
+        
         int max = 0;
         int name = 0;
         for (int x : map.keySet()) {
