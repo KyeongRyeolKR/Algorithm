@@ -1,11 +1,12 @@
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 class Solution {
     public String[] solution(String[] quiz) {
-        String[] answer = new String[quiz.length];
-        for(int i=0; i<quiz.length; i++) {
-            answer[i] = check(quiz[i]);
-        }
-
-        return answer;
+        return Arrays.stream(quiz)
+                .map(this::check)
+                .collect(Collectors.toList())
+                .toArray(new String[0]);
     }
 
     private String check(String str) {
