@@ -13,13 +13,11 @@ class Solution {
         for(int i=0; i<photo.length; i++) {
             int sum = 0;
             for(int j=0; j<photo[i].length; j++) {
-                if(info.get(photo[i][j]) != null) {
-                    sum += info.get(photo[i][j]);
-                }
+                sum += info.getOrDefault(photo[i][j], 0);
             }
             result[i] = sum;
         }
-        
+
         return result;
     }
 }
