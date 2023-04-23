@@ -1,10 +1,8 @@
+import java.util.Arrays;
+
 class Solution {
     public int solution(int[] numbers, int n) {
-        int sum = 0;
-        for (int number : numbers) {
-            sum += number;
-            if (sum > n) return sum;
-        }
-        return 0;
+        return Arrays.stream(numbers)
+                .reduce(0, (sum, e) -> sum <= n ? sum + e : sum);
     }
 }
