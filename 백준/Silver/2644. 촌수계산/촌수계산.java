@@ -1,53 +1,51 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-class Main {
-    static boolean[] visited;
-    static int[][] arr;
-    static int result, pointCount, lineCount;
-    static boolean find;
+public class Main {
+
+    static int[][] map;
+    static int[] counts;
+    static int nodes;
+    static int start;
+    static int end;
+    static int lines;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        pointCount = sc.nextInt();
-        int start = sc.nextInt();
-        int end = sc.nextInt();
-        lineCount = sc.nextInt();
-        int cnt = 0;
+        nodes = sc.nextInt();
+        start = sc.nextInt();
+        end = sc.nextInt();
+        lines = sc.nextInt();
 
-        arr = new int[pointCount+1][pointCount+1];
-        visited = new boolean[pointCount+1];
-
-        for(int i=0; i<lineCount; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-
-            arr[a][b] = 1;
-            arr[b][a] = 1;
+        map = new int[nodes+1][nodes+1];
+        for(int i=1; i<=lines; i++) {
+            int e1 = sc.nextInt();
+            int e2 = sc.nextInt();
+            map[e1][e2] = 1;
+            map[e2][e1] = 1;
         }
 
-        dfs(start, end, 0);
+        counts = new int[nodes+1];
+        bfs(start, end);
 
-        if(!find) {
-            result = -1;
-        }
-        System.out.println(result);
+        System.out.println(counts[end] == 0 ? -1 : counts[end]);
     }
 
-    private static void dfs(int start, int end, int cnt) {
-        visited[start] = true;
+    private static void bfs(int start, int end) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        while(!queue.isEmpty()) {
+            int node = queue.poll();
 
-        if(start == end) {
-            find = true;
-            result = cnt;
-            return;
-        }
+            if(node == end) break;
 
-        for(int i=1; i<arr[start].length; i++) {
-            if(arr[start][i] == 1 && !visited[i]) {
-                visited[i] = true;
-                dfs(i, end, cnt+1);
-                visited[i] = false;
+            for(int i=1; i<=nodes; i++) {
+                if(map[node][i] == 1 && counts[i] == 0) {
+                    counts[i] = counts[node]+1;
+                    queue.add(i);
+                }
             }
         }
     }
