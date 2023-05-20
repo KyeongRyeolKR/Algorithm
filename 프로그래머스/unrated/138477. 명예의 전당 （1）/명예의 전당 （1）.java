@@ -1,23 +1,19 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 class Solution {
     public int[] solution(int k, int[] score) {
-        List<Integer> answer = new ArrayList<>();
+        int[] answer = new int[score.length];
+        Queue<Integer> queue = new PriorityQueue<>();
 
-        List<Integer> list = new ArrayList<>();
         for(int i=0; i<score.length; i++) {
-            list.add(score[i]);
-            list.sort(Collections.reverseOrder());
-            if(list.size() <= k) {
-                answer.add(list.get(list.size()-1));
-                continue;
+            queue.add(score[i]);
+            if(queue.size() > k) {
+                queue.poll();
             }
-            answer.add(list.get(k-1));
+            answer[i] = queue.peek();
         }
-        return answer.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
+
+        return answer;
     }
 }
