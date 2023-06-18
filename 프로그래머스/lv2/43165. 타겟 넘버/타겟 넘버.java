@@ -1,21 +1,30 @@
 class Solution {
 
-    static int answer;
+    int answer;
+    int[] numbers;
+    int target;
 
     public int solution(int[] numbers, int target) {
-        dfs(numbers, target, 0, 0);
+        answer = 0;
+        this.numbers = numbers;
+        this.target = target;
+
+        dfs(0, 0);
+
         return answer;
     }
 
-    private void dfs(int[] numbers, int target, int index, int sum) {
+    private void dfs(int index, int sum) {
+        // 탈출 조건
         if(index == numbers.length) {
-            if(target == sum) {
+            if(sum == target) {
                 answer++;
             }
             return;
         }
 
-        dfs(numbers, target, index+1, sum + numbers[index]);
-        dfs(numbers, target, index+1, sum - numbers[index]);
+        // 수행 동작
+        dfs(index + 1, sum + numbers[index]);
+        dfs(index + 1, sum - numbers[index]);
     }
 }
