@@ -1,67 +1,69 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
-class Main {
+public class Main {
+
     static int[][] map;
     static boolean[][] visited;
-    static int result, T, row, col, cabbage;
-    static int[] dx = {0, -1, 0, 1};
-    static int[] dy = {-1, 0, 1, 0};
+    static int width, height, count, answer;
+
+//                    상, 하, 좌, 우
+    static int[] dr = {-1, 1, 0, 0};
+    static int[] dc = {0, 0, -1, 1};
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        T = sc.nextInt();
+        int T = sc.nextInt();
         for(int i=0; i<T; i++) {
-            result = 0;
+            width = sc.nextInt();
+            height = sc.nextInt();
+            count = sc.nextInt();
+            answer = 0;
 
-            row = sc.nextInt();
-            col = sc.nextInt();
-            cabbage = sc.nextInt();
-
-            visited = new boolean[row][col];
-            map = new int[row][col];
-
-            for(int j=0; j<cabbage; j++) {
-                map[sc.nextInt()][sc.nextInt()] = 1;
+            map = new int[height][width];
+            for(int j=0; j<count; j++) {
+                int x = sc.nextInt();
+                int y = sc.nextInt();
+                map[y][x] = 1;
             }
 
-            for(int j=0; j<row; j++) {
-                for(int k=0; k<col; k++) {
+            visited = new boolean[height][width];
+
+            for(int j=0; j<height; j++) {
+                for(int k=0; k<width; k++) {
                     if(map[j][k] == 1 && !visited[j][k]) {
                         bfs(j, k);
                     }
                 }
             }
-            System.out.println(result);
+            System.out.println(answer);
         }
-
     }
 
-    private static void bfs(int startX, int startY) {
-        result++;
+    private static void bfs(int row, int col) {
+        answer++;
 
         Queue<int[]> queue = new LinkedList<>();
-
-        queue.add(new int[]{startX, startY});
+        queue.add(new int[]{row, col});
 
         while(!queue.isEmpty()) {
-            int[] points = queue.poll();
-            int x = points[0];
-            int y = points[1];
+            int[] point = queue.poll();
+            int r = point[0];
+            int c = point[1];
 
-            if(visited[x][y]) {
-                continue;
-            }
+            if(visited[r][c]) continue;
 
-            visited[x][y] = true;
+            visited[r][c] = true;
 
             for(int i=0; i<4; i++) {
-                int movedX = x + dx[i];
-                int movedY = y + dy[i];
+                int cr = dr[i] + r;
+                int cc = dc[i] + c;
 
-                if(movedX >= 0 && movedY >= 0 && movedX < row && movedY < col) {
-                    if(map[movedX][movedY] == 1) {
-                        queue.add(new int[]{movedX, movedY});
+                if(cr >= 0 && cc >= 0 && cr < height && cc < width) {
+                    if(map[cr][cc] == 1) {
+                        queue.add(new int[]{cr, cc});
                     }
                 }
             }
