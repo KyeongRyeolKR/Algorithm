@@ -1,65 +1,61 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 
-class Main {
+public class Main {
+
+    static int[][] map;
     static boolean[] visited;
-    static int[][] arr;
-    static Queue<Integer> queue;
+    static int N; // 정점의 개수
+    static int M; // 간선의 개수
+    static int V; // 시작점
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int pointCount = sc.nextInt();
-        int lineCount = sc.nextInt();
-        int start = sc.nextInt();
+        N = sc.nextInt();
+        M = sc.nextInt();
+        V = sc.nextInt();
 
-        arr = new int[pointCount+1][pointCount+1];
-        visited = new boolean[pointCount+1];
-        queue = new LinkedList<>();
+        map = new int[N+1][N+1];
+        visited = new boolean[N+1];
 
-        for(int i=0; i<lineCount; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-
-            arr[a][b] = 1;
-            arr[b][a] = 1;
+        for(int i=0; i<M; i++) {
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            map[x][y] = 1;
+            map[y][x] = 1;
         }
 
-        dfs(start);
+        dfs(V);
         System.out.println();
 
-        visited = new boolean[pointCount+1];
+        visited = new boolean[N+1];
 
-        bfs(start);
+        bfs(V);
     }
 
-    private static void dfs(int start) {
-        visited[start] = true;
+    private static void dfs(int node) {
+        visited[node] = true;
+        System.out.print(node + " ");
 
-        System.out.print(start + " ");
-
-        for(int i=1; i<arr[start].length; i++) {
-            if(arr[start][i] == 1 && !visited[i]) {
+        for(int i=1; i<=N; i++) {
+            if(!visited[i] && map[node][i] == 1) {
                 dfs(i);
             }
         }
     }
 
     private static void bfs(int start) {
-        queue.offer(start);
-
+        Queue<Integer> queue = new LinkedList<>();
         visited[start] = true;
+        queue.add(start);
 
         while(!queue.isEmpty()) {
-            start = queue.poll();
-
-            System.out.print(start + " ");
-
-            for(int i=1; i<arr[start].length; i++) {
-                if(arr[start][i] == 1 && !visited[i]) {
-                    queue.offer(i);
+            int node = queue.poll();
+            System.out.print(node + " ");
+            for(int i=1; i<=N; i++) {
+                if(!visited[i] && map[node][i] == 1) {
                     visited[i] = true;
+                    queue.add(i);
                 }
             }
         }
