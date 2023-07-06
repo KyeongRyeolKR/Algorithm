@@ -1,46 +1,42 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
-class Main {
-    static ArrayList<Integer>[] a;
-    static boolean[] visit;
-    static int count;
+public class Main {
+    static ArrayList<Integer>[] graph;
+    static boolean[] visited;
+    static int count = 0;
 
-    public static void main(String args[]) {
-
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
         int n = sc.nextInt();
         int m = sc.nextInt();
 
-        a = new ArrayList[n+1];
-        visit = new boolean[n+1];
-
-        for (int i=1; i<=n; i++) {
-            a[i] = new ArrayList<Integer>();
+        graph = new ArrayList[n+1];
+        for (int i = 1; i <= n; i++) {
+            graph[i] = new ArrayList<>();
         }
 
-        for (int i=0; i<m; i++) {
-            int u = sc.nextInt();
-            int v = sc.nextInt();
-            a[u].add(v);
-            a[v].add(u);
+        for (int i = 0; i < m; i++) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+
+            graph[a].add(b);
+            graph[b].add(a);
         }
 
+        visited = new boolean[n+1];
+        dfs(1);
 
-        System.out.println(dfs(1));
+        System.out.println(count);
     }
 
+    public static void dfs(int node) {
+        visited[node] = true;
 
-    public static int dfs(int x) {
-        visit[x] = true;
-
-        for (int y : a[x]) {
-            if (visit[y] == false) {
+        for (int next : graph[node]) {
+            if (!visited[next]) {
                 count++;
-                dfs(y);
+                dfs(next);
             }
         }
-        return count;
     }
 }
