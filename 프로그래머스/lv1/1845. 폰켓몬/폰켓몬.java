@@ -1,3 +1,5 @@
+package 프로그래머스.lv1.*;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
