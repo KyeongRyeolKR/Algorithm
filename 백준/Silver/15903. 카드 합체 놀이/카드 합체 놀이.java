@@ -7,19 +7,21 @@ public class Main {
 
         int n = sc.nextInt();
         int m = sc.nextInt();
-        long[] cards = new long[n];
+        PriorityQueue<Long> queue = new PriorityQueue<>();
         for(int i=0; i<n; i++) {
-            cards[i] = sc.nextInt();
+            queue.add(sc.nextLong());
         }
 
         while(m-->0) {
-            Arrays.sort(cards);
-            long temp = cards[0] + cards[1];
-            cards[0] = temp;
-            cards[1] = temp;
+            long x = queue.poll();
+            long y = queue.poll();
+            queue.add(x + y);
+            queue.add(x + y);
         }
 
-        long total = Arrays.stream(cards).sum();
+        long total = queue.stream()
+                .reduce(Long::sum)
+                .get();
 
         System.out.println(total);
     }
