@@ -8,21 +8,15 @@ public class Main {
         int n = sc.nextInt();
         int k = sc.nextInt();
 
-        List<Integer> coins = new ArrayList<>();
+        int[] coins = new int[n];
         for(int i=0; i<n; i++) {
-            coins.add(sc.nextInt());
+            coins[i] = sc.nextInt();
         }
 
-        coins.sort(Collections.reverseOrder());
-
         int count = 0;
-        for(int coin : coins) {
-            if(coin > k) continue;
-            while(coin <= k) {
-                k -= coin;
-                count++;
-                if(k == 0) break;
-            }
+        for(int i=coins.length-1; i>=0; i--) {
+            count += k / coins[i];
+            k %= coins[i];
         }
 
         System.out.println(count);
