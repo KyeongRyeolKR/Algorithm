@@ -20,10 +20,16 @@ public class Main {
             return (int) (o1.start - o2.start);
         });
 
+        long total = getTotal(lines);
+
+        System.out.println(total);
+    }
+
+    private static long getTotal(Line[] lines) {
         long startPoint = lines[0].start;
         long endPoint = lines[0].end;
         long total = endPoint - startPoint;
-        for(int i=1; i<lines.length; i++) {
+        for(int i = 1; i< lines.length; i++) {
             if(startPoint <= lines[i].start && endPoint >= lines[i].end) {
                 continue;
             } else if(lines[i].start < endPoint) {
@@ -35,8 +41,8 @@ public class Main {
             startPoint = lines[i].start;
             endPoint = lines[i].end;
         }
-
-        System.out.println(total);
+        
+        return total;
     }
 }
 
@@ -47,13 +53,5 @@ class Line {
     public Line(long start, long end) {
         this.start = start;
         this.end = end;
-    }
-
-    public long getStart() {
-        return start;
-    }
-
-    public long getEnd() {
-        return end;
     }
 }
