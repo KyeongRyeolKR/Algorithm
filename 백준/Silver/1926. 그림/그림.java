@@ -2,34 +2,54 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+/**
+ * 1. 아이디어
+ * - 2중 for문 => 값 1 && 방문 X => BFS
+ *
+ * 2. 시간복잡도
+ * - BFS => O(V+E)
+ * - V = m * n
+ * - E = V * 4
+ * - V+E = V + 4V = 5V = 5 * m * n = 5 * 500 * 500 = 5 * 250000 = 1250000
+ * => 125만 => 해결 가능!
+ *
+ * 3. 자료구조
+ * - 그래프 전체 지도 : int[][]
+ * - 방문 여부 : boolean[][]
+ * - BFS : Queue
+ */
 public class Main {
 
-    static int row, col;
+    static int n, m;
     static int[][] map;
     static boolean[][] visited;
+    static int count, max;
     static int[] dr = {-1, 1, 0, 0};
     static int[] dc = {0, 0, -1, 1};
-    static int count, max;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         Scanner sc = new Scanner(System.in);
 
-        row = sc.nextInt();
-        col = sc.nextInt();
+        n = sc.nextInt();
+        m = sc.nextInt();
 
-        visited = new boolean[row][col];
-        map = new int[row][col];
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
+        map = new int[n][m];
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
                 map[i][j] = sc.nextInt();
             }
         }
 
-        for(int i=0; i<row; i++) {
-            for(int j=0; j<col; j++) {
+        visited = new boolean[n][m];
+
+        count = 0;
+        max = 0;
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<m; j++) {
                 if(map[i][j] == 1 && !visited[i][j]) {
-                    bfs(i, j);
+                    visited[i][j] = true;
                     count++;
+                    max = Math.max(max, bfs(new Point(i, j)));
                 }
             }
         }
@@ -38,30 +58,28 @@ public class Main {
         System.out.println(max);
     }
 
-    private static void bfs(int sRow, int sCol) {
-        Queue<Point> q = new LinkedList<>();
-        q.add(new Point(sRow, sCol));
-        visited[sRow][sCol] = true;
+    private static int bfs(Point point) {
+        int size = 1;
 
-        int size = 0;
-        while(!q.isEmpty()) {
-            size++;
-            Point current = q.poll();
-            int nr = current.row;
-            int nc = current.col;
+        Queue<Point> queue = new LinkedList<>();
+        queue.add(point);
+
+        while(!queue.isEmpty()) {
+            Point current = queue.poll();
             for(int i=0; i<4; i++) {
-                int cr = dr[i] + nr;
-                int cc = dc[i] + nc;
-                if(cr >= 0 && cc >= 0 && cr < row && cc < col) {
-                    if(!visited[cr][cc] && map[cr][cc] == 1) {
-                        q.add(new Point(cr, cc));
-                        map[cr][cc] = map[nr][nc] + 1;
+                int cr = current.row + dr[i];
+                int cc = current.col + dc[i];
+                if(cr >= 0 && cc >= 0 && cr < n && cc < m) {
+                    if(map[cr][cc] == 1 && !visited[cr][cc]) {
+                        size++;
                         visited[cr][cc] = true;
+                        queue.add(new Point(cr, cc));
                     }
                 }
             }
         }
-        max = Math.max(size, max);
+
+        return size;
     }
 }
 
